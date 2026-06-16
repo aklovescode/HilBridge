@@ -1,6 +1,6 @@
 # Visualize Commit Changes
 
-The commit filter lets the user choose recent GitHub commits by message and date/time, or choose `Staged Local Changes` when the local checkout has staged changes. The backend uses GitHub commit metadata for dropdown options, then uses local git diff commands to identify changed files, mark matching graph nodes, record change status metadata, create missing placeholder nodes for changed files, and attach commit URLs anchored to each changed file's diff section when GitHub metadata is available.
+The commit filter lets the user choose recent commits by message and date/time, or choose `Staged Local Changes` when the local checkout has staged changes. The backend uses GitHub commit metadata for dropdown options when available, falls back to local git commit metadata when GitHub is unavailable or rate-limited, then uses local git diff commands to identify changed files, mark matching graph nodes, record change status metadata, create missing placeholder nodes for changed files, and attach commit URLs anchored to each changed file's diff section when GitHub metadata is available.
 
 ```plantuml
 @startuml
@@ -12,6 +12,7 @@ participant Graph
 
 UI -> Backend: POST /api/commit-options(repoPath)
 Backend -> GitHub: fetch recent commits
+Backend -> Git: git log fallback when GitHub commits are unavailable
 Backend -> Git: git diff --cached --name-status -M
 Backend --> UI: CommitOptionsResponse
 UI -> Backend: POST /api/graph(repoPath, diffTarget, commitHash?)

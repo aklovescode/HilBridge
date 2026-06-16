@@ -8,7 +8,9 @@
     "dev:backend": "tsx watch backend/src/server.ts",
     "dev:frontend": "vite --config frontend/vite.config.ts --host 127.0.0.1",
     "build": "tsc -p backend/tsconfig.json && tsc -p frontend/tsconfig.json && vite build --config frontend/vite.config.ts",
-    "typecheck": "tsc -p backend/tsconfig.json && tsc -p frontend/tsconfig.json"
+    "typecheck": "tsc -p backend/tsconfig.json && tsc -p frontend/tsconfig.json",
+    "setup:tools": "python3 scripts/setup_tools.py",
+    "validate:docs": "python3 scripts/validate_docs.py"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.0.0",

@@ -12,6 +12,13 @@ The app is generic: any local Git checkout with a `spec/` directory and markdown
 npm install
 ```
 
+To install project-local documentation tooling, including the PlantUML jar used
+by the docs validator:
+
+```bash
+npm run setup:tools
+```
+
 ## Run
 
 ```bash
@@ -71,6 +78,21 @@ The backend extracts:
 - PlantUML markers, including fenced `plantuml` blocks and `@startuml`
 
 Markdown links become note-to-note edges. Source references become note-to-code edges.
+
+## Documentation Validation
+
+Validate the spec graph and documentation links with:
+
+```bash
+npm run validate:docs
+```
+
+The validator checks markdown links, reachability from `spec/Vision.md`, the
+conventional Vision -> Capabilities -> Flows -> Modules -> Code traceability,
+module/contract `## Code` source paths, and fenced `plantuml` blocks when
+PlantUML is available. The setup command downloads the jar to
+`tools/plantuml.jar`; use `python3 scripts/validate_docs.py --no-plantuml` when
+Java or PlantUML is unavailable.
 
 ## GitHub URL Detection
 

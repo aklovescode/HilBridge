@@ -213,7 +213,9 @@ async function buildCommitOptions(repoPath: string, requestedLimit?: number): Pr
     options.push({ kind: "staged", label: "Staged Local Changes" });
   }
 
-  options.push(...(await fetchGitHubCommitOptions(repoPath, github, limit, warnings)));
+  const githubOptions = await fetchGitHubCommitOptions(repoPath, github, limit, warnings);
+  const commitOptions = githubOptions.length ? githubOptions : await readLocalCommitOptions(repoPath, github, limit, warnings);
+  appendUniqueCommitOptions(options, commitOptions);
 
   return {
     options,
@@ -289,6 +291,54 @@ async function fetchGitHubCommitOptions(
     const message = error instanceof Error ? error.message : String(error);
     warnings.push(`Could not load GitHub commits: ${message}`);
     return [];
+  }
+}
+
+async function readLocalCommitOptions(
+  repoPath: string,
+  github: GraphResponse["repo"]["github"],
+  limit: number,
+  warnings: string[]
+): Promise<CommitFilterOption[]> {
+  try {
+    const { stdout } = await execFileAsync("git", ["log", "-n", String(limit), "--pretty=format:%H%x00%cI%x00%s"], {
+      cwd: repoPath,
+      maxBuffer: 1024 * 1024
+    });
+
+    return stdout
+      .split(/\r?\n/)
+      .map((line): GitHubCommitOption | undefined => {
+        const [sha, committedAt, rawMessage] = line.split("\0");
+        if (!sha || !committedAt) return undefined;
+        const message = firstCommitMessageLine(rawMessage) || sha.slice(0, 12);
+        return {
+          kind: "commit",
+          sha,
+          message,
+          committedAt,
+          url: githubCommitUrl(github, sha)
+        };
+      })
+      .filter(isDefined);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    warnings.push(`Could not load local commits: ${message}`);
+    return [];
+  }
+}
+
+function appendUniqueCommitOptions(options: CommitFilterOption[], commitOptions: CommitFilterOption[]) {
+  const seenShas = new Set(
+    options
+      .filter((option): option is GitHubCommitOption => option.kind === "commit")
+      .map((option) => option.sha)
+  );
+
+  for (const option of commitOptions) {
+    if (option.kind !== "commit" || seenShas.has(option.sha)) continue;
+    options.push(option);
+    seenShas.add(option.sha);
   }
 }
 
