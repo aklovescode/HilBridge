@@ -8,6 +8,10 @@ The app is generic: any local Git checkout with a `spec/` directory and markdown
 
 ## Install
 
+Reusable development workflows live in [skills/](skills/README.md). Maintain
+them in this checkout and explicitly sync them to the user-level installation
+when ready; they are shared across projects independently of the HilBridge app.
+
 ```bash
 npm install
 ```

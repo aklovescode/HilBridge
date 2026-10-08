@@ -1,7 +1,8 @@
 # AGENTS.md
 
 This guide applies to the whole repository. Treat it as the project-specific
-handoff for the `.agents/skills/` workflows.
+handoff for the shared workflows maintained in `skills/` and installed at
+`$HOME/.agents/skills`. See [skill maintenance](skills/README.md).
 
 ## Project Summary
 
@@ -169,23 +170,23 @@ now; diagrams are not rendered by the app.
 
 ## Skill Workflow Guidance
 
-- `fullstack-dev-doc` and `fullstack-dev-ideate`: update `spec/` only, then run
+- `fs-dev-doc` and `fs-dev-ideate`: update `spec/` only, then run
   `npm run validate:docs`. Stage only the docs that belong to the task.
-- `fullstack-dev-plan` and `fullstack-dev-investigate`: use this file, `spec/`,
+- `fs-dev-plan` and `fs-dev-investigate`: use this file, `spec/`,
   source, and `current_task/` context to produce a concrete plan. Do not edit
   source or specs while planning.
-- `fullstack-dev-implement` and `fullstack-dev-iterate`: implement the approved
+- `fs-dev-implement` and `fs-dev-iterate`: implement the approved
   plan, update affected specs, run the required validations, and stage only
   files in scope.
-- `fullstack-dev-review`: review staged changes against the approved plan,
+- `fs-dev-review`: review staged changes against the approved plan,
   specs, contracts, and validations. Write `current_task/changes_summary.md`
   and do not fix code in the review step.
-- `fullstack-test-plan`: write `current_task/plan.md` with exact test cases,
+- `fs-test-plan`: write `current_task/plan.md` with exact test cases,
   framework choices, fixtures, and validation commands.
-- `fullstack-test-implement`: implement only the approved test plan. Reuse
+- `fs-test-implement`: implement only the approved test plan. Reuse
   existing project commands unless the plan adds test infrastructure.
-- `fullstack-test-run`: run the requested commands, compare failures against
-  specs, and write `current_task/bugs.md` without fixing code.
+- `fs-test-run`: run the requested commands, compare failures against
+  specs, and write `current_task/changes_summary.md` without fixing code.
 
 ## Git Hygiene
 
