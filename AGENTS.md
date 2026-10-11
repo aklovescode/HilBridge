@@ -170,23 +170,58 @@ now; diagrams are not rendered by the app.
 
 ## Skill Workflow Guidance
 
+- For delegated delivery, use `fs-dev-plan` in actual Codex Plan mode, then
+  `fs-dev-orchestrate` after approval in execution mode. Skills cannot switch
+  the client's mode by declaration. The approved plan includes implementation,
+  test cases, ownership, dependencies, and local commit/integration/cleanup
+  authority. Routine in-scope fixes and agent reviews reuse that approval.
+- The parent owns tests, fixtures, harness configuration, shared docs, and
+  integration. Implementation children use separate worktrees and implement
+  assigned production code/docs without authoring or running tests. Typecheck,
+  build, and documentation checks still apply; the plan assigns any check that
+  needs integrated dependencies to the parent. Inspect setup scripts for tests
+  or shared side effects before running them in child worktrees.
+- Integrate on a task branch and review an explicit base/head candidate while
+  the parent runs tests on the same source tree. Use `fs-dev-iterate` for
+  review/test findings, then repeat affected validation and independent review.
+  Advance the approved destination (normally `main`) only after completion
+  evidence passes. Preserve task commits/artifacts before worktree cleanup.
+- Save delegated-run plans, context, state, and separate candidate review/test
+  reports under `current_task/runs/<run-id>/`. Keep this separate from unrelated
+  `current_task/plan.md` and `changes_summary.md`; put bulky logs and runtime
+  artifacts under `artifacts/development/<run-id>/`. These files are task
+  evidence, not specs or build inputs. Keep private context out of public commits.
+- Existing user decisions and an approved plan authorize their specified
+  human-spec updates. Human View remains authoritative and reviewable; it does
+  not require human approval of every in-scope edit. New material intent or
+  architecture, publication, and destructive operations retain their applicable
+  approval boundaries. Push or deployment must be explicitly within authority.
 - `fs-dev-doc` and `fs-dev-ideate`: update `spec/` only, then run
   `npm run validate:docs`. Stage only the docs that belong to the task.
 - `fs-dev-plan` and `fs-dev-investigate`: use this file, `spec/`,
   source, and `current_task/` context to produce a concrete plan. Do not edit
-  source or specs while planning.
+  source or specs while planning. In Plan mode, output the native plan; save
+  the approved copy only after returning to execution mode.
 - `fs-dev-implement` and `fs-dev-iterate`: implement the approved
   plan, update affected specs, run the required validations, and stage only
-  files in scope.
-- `fs-dev-review`: review staged changes against the approved plan,
-  specs, contracts, and validations. Write `current_task/changes_summary.md`
-  and do not fix code in the review step.
-- `fs-test-plan`: write `current_task/plan.md` with exact test cases,
-  framework choices, fixtures, and validation commands.
-- `fs-test-implement`: implement only the approved test plan. Reuse
-  existing project commands unless the plan adds test infrastructure.
+  files/hunks in scope. Follow the delegated role's test/commit assignment.
+- `fs-dev-review`: review the staged batch or explicit base/head range against
+  the approved plan, specs, contracts, tests, and validations. Use the assigned
+  run report; for standalone review use `current_task/changes_summary.md`.
+  Do not fix code in the review step.
+- `fs-test-plan`: use the native Plan-mode output or, outside Plan mode, the
+  task-owned `current_task/plan.md` for a testing-only plan. Development plans
+  already include tests and do not need a second test-plan approval.
+- `fs-test-implement`: implement the approved standalone or integrated test
+  plan. Reuse existing commands unless the plan adds test infrastructure.
 - `fs-test-run`: run the requested commands, compare failures against
-  specs, and write `current_task/changes_summary.md` without fixing code.
+  specs, and write the assigned run test report or standalone
+  `current_task/test_results.md` without fixing code. Preserve review reports.
+- For skill-only maintenance, run Skill Creator's `quick_validate.py` for each
+  changed skill, check local links and family-wide handoffs, and use isolated
+  behavioral trials for substantial workflow changes. Report static checks
+  separately from observed agent execution. Application typecheck/build and
+  spec validation apply when their corresponding source/spec files change.
 
 ## Git Hygiene
 

@@ -1,9 +1,9 @@
 ---
 name: fs-dev-iterate
 description: >-
-  Applies human review feedback to the same approved task, updates
-  in-scope code, tests, reuse catalogs, and affected Vision-first spec notes,
-  validates, and stages only the follow-up paths. Use after fs-dev-review when
+  Applies human or independent-agent feedback and test failures to the same
+  approved task. Updates in-scope code, tests, reuse catalogs, and spec notes,
+  validates, and stages only the follow-up paths. Use after review or failed checks when
   feedback does not materially change approved product intent or architecture.
 ---
 
@@ -16,12 +16,14 @@ keeping the follow-up diff attributable to that feedback.
 
 ## Authority And Approval Boundary
 
-- Require the approved plan, `current_task/changes_summary.md`, and human
-  feedback from chat or `current_task/review_feedback.md`, using project artifact
-  equivalents. If an input is missing, report that prerequisite; do not invent
+- Require the approved plan and concrete feedback: a human request, independent
+  review findings, or test-failure evidence with its candidate identity. Use the
+  assigned run reports or project artifact equivalents. If a necessary input
+  is missing, report that prerequisite; do not invent
   approval or send an unchanged task back through planning.
 - Apply in-scope local changes and non-destructive validation without asking
-  again.
+  again. A failing implementation of approved behavior does not require fresh
+  human approval to repair; preserve the accepted behavior and assertions.
 - Return to `fs-dev-plan` when feedback changes product behavior, ownership,
   architecture, destructive impact, or material scope outside the approved plan.
 - Commit, push, deploy, destructive operations, and external writes require
@@ -43,7 +45,7 @@ report missing required context or validation instead of claiming completeness.
 ## Required Context
 
 Read the plan, review artifacts, relevant code, affected `reuse.md` catalogs,
-`spec/conventions/Documentation_Conventions.md`, and the authoritative
+existing project documentation conventions, and the authoritative
 Vision/UI/Flow/Module/Contract or cross-domain notes.
 
 Preserve the implementation constraints in the approved plan and project
@@ -70,13 +72,23 @@ and applicable UI conventions. Keep testability hooks minimal.
    changes; identify any item requiring replanning. Reuse unchanged approvals
    and current source/validation evidence.
 2. Implement the smallest in-scope correction and focused regression evidence.
+   Preserve assigned file ownership while children are still active. Classify
+   failures before editing: product bug, test bug, environment blocker, or known
+   gap. Fix a test only when evidence shows its fixture/assertion is wrong;
+   do not weaken the approved expected result to obtain a pass.
 3. Update affected reuse catalogs and documentation owners.
 4. Run the project-declared documentation checks when specs change and the
    narrowest relevant code/tests from the plan and feedback.
 5. Check resolved feedback and original completion criteria against actual
    results. Inspect the diff and index; stage only task-owned follow-up paths or
-   hunks. For a substantial batch, run `fs-dev-review` again without letting
-   iteration's write permission carry into the review-only step.
+   hunks. In orchestrated runs, record a new candidate commit under the plan's
+   commit authority and return to independent review and affected validation.
+   For standalone substantial changes, run `fs-dev-review` again. Iteration's
+   write permission does not carry into the review-only step.
+
+Keep each finding linked to its fix and current verification evidence. Escalate
+missing access, material scope decisions, or repeated attempts without progress;
+do not waive unresolved findings or erase failed runs to declare completion.
 
 ## Success Criteria And Output
 

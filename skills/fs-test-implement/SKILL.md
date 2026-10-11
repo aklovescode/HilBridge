@@ -5,7 +5,8 @@ description: >-
   behavior-preserving testability hooks, existing harnesses, deterministic
   fixtures, and concrete tests in the project’s stack. Updates the owning
   Vision-first verification and E2E scenario notes, validates, and stages only
-  planned paths. Use after fs-test-plan approval.
+  planned paths. Accepts an approved fs-test-plan or the testing section of an
+  approved fs-dev-plan, including parent-owned tests during delegated delivery.
 ---
 
 # Full-stack Testing — Implement
@@ -26,18 +27,21 @@ changing production behavior to make a test pass.
 
 ## Authority And Approval Boundary
 
-- Require the approved `current_task/plan.md`.
+- Require the approved test plan or integrated development plan's testing
+  section, from the session or saved project/run artifact. Do not require a
+  second approval or a particular filename when that approval already exists.
 - Make its in-scope local changes and run non-destructive validation without
   further confirmation.
-- Return to `fs-test-plan` when source/spec facts materially conflict with the
-  plan or success requires changed behavior, ownership, architecture,
+- Return to the owning planning workflow when source/spec facts materially
+  conflict with the plan or success requires changed behavior, ownership, architecture,
   destructive setup, or expanded scope.
-- Do not commit, push, deploy, reset an ambiguous database, or stage unrelated
-  dirty work.
+- Local checkpoint commits may be authorized by the approved orchestration
+  plan. Honor that authority without asking again; do not infer push/deployment
+  or destructive reset authority. Preserve unrelated dirty work.
 
 ## Required Context
 
-Read the plan, `spec/conventions/Documentation_Conventions.md`, owning
+Read the plan, existing project documentation conventions, owning
 Flow/Module/Contract and scenario notes, source, nearby tests, fixtures, and
 runners. Use project-configured discovery tools when the plan lacks an exact spec path.
 
@@ -62,23 +66,42 @@ Verification ownership:
   opportunistic cleanup.
 - Preserve unrelated dirty work and exact reset targets.
 
+## Parent Role In Delegated Delivery
+
+The parent writes tests, fixtures, and harness/configuration changes in its
+integration worktree while implementation children work elsewhere. Production
+testability hooks belong to their assigned child; communicate the approved seam
+instead of editing that child's paths. The parent owns assigned shared specs and
+verification notes to avoid competing documentation edits.
+
+Build tests from approved behavior, not the child's completion claims. Author
+against agreed interfaces and finish wiring after integration. Capture useful
+baseline failures when runnable, but do not describe missing implementation as
+a final test result. Defer implementation-dependent tests until the candidate is
+integrated; the orchestration parent runs final tests alongside independent review.
+
 ## Workflow
 
 1. Confirm plan scope, existing dirty state, target environments, and
    completion criteria.
-2. Implement planned testability hooks, then harness/fixture support, then
-   concrete tests.
+2. Implement planned harness/fixture support and concrete tests. In standalone
+   work also implement approved minimal production hooks; in delegated work
+   coordinate those hooks with their assigned owner.
 3. Update the owning documentation notes. Keep `## Human View` authoritative;
    verification instructions in Derived Delivery Guidance must trace to the
    human behavior and must not add product outcomes.
 4. Keep exact commands in one evidence owner and keep scenario/Flow links
    bidirectional.
 5. Run the project-required documentation validation when specs change.
-6. Run narrow planned tests first, followed by justified broader suites.
+6. Run narrow runnable tests first, followed by justified broader suites. During
+   parallel development, record deferred checks and their prerequisites; after
+   integration run them against the recorded candidate without concurrent edits.
 7. Inspect the final diff and stage only planned paths.
 
 If an environment is unavailable, preserve the implemented work and report the
 exact blocked command and prerequisite; do not guess at a passing result.
+Record command, result, source tree, and environment with the evidence. Test
+authoring complete is distinct from validation complete.
 
 ## Output
 

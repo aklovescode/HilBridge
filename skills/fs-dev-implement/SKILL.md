@@ -1,10 +1,10 @@
 ---
 name: fs-dev-implement
 description: >-
-  Implements an explicitly approved implementation plan, including in-scope code,
-  tests, reuse catalogs, and affected Vision-first spec notes; runs relevant
-  non-destructive validation and stages only the planned paths. Use after
-  fs-dev-plan or fs-dev-investigate approval, then hand off to fs-dev-review.
+  Implements an approved development plan or assigned subplan. In delegated
+  delivery, children own production code and assigned docs while the parent
+  owns tests; standalone implementation includes planned tests. Validates the
+  assigned scope and hands off evidence without expanding approval.
 ---
 
 # Full-stack Dev — Implement
@@ -13,6 +13,21 @@ description: >-
 
 Deliver the approved outcome completely without changing its product intent or
 expanding its scope.
+
+## Assigned Role
+
+For an implementation child under `fs-dev-orchestrate`, use the assigned
+worktree, base commit, paths, and context packet. Verify the directory and base
+before edits; spawning a child does not itself change the working directory.
+Own production changes, approved production testability hooks, and assigned
+docs only. Do not create/update test cases, fixtures, or test harnesses and do
+not run tests. Run assigned typecheck/build/documentation checks; inspect scripts
+so an apparently non-test command does not run a test suite indirectly. Report
+any project check that must wait for integration. The parent owns test execution
+and final completion; do not claim this subplan is tested.
+
+Without that delegated assignment, implement the approved code, docs, and tests
+and run the planned validation as usual. Do not silently offload a standalone task.
 
 ## Authority And Approval Boundary
 
@@ -25,8 +40,10 @@ expanding its scope.
   contradiction or when success requires new behavior, ownership,
   architecture, destructive impact, or scope outside the approved plan.
 - Implementation approval covers in-scope local work and non-destructive checks.
-  Commit, push, deploy, destructive operations, and external writes require
-  separate authorization for that action. Honor authorization already given;
+  Commits may be authorized by the approved orchestration plan; commit only
+  assigned work in the child worktree and return its SHA. Push, deploy,
+  destructive operations, and external writes require scoped authorization
+  for that action. Honor authorization already given;
   finish authorized steps without asking again. Never stage unrelated edits.
 
 ## Project Context
@@ -43,11 +60,11 @@ report missing required context or validation instead of claiming completeness.
 
 ## Required Context
 
-Read the plan, `spec/conventions/Documentation_Conventions.md`, affected
+Read the plan, existing project documentation conventions, affected
 Vision/UI/Flow/Module/Contract or cross-domain notes, and the source paths they
 own. Read relevant `spec/doc_issues.md` entries.
 
-For UI or server work, read the root and path-local `reuse.md` catalogs. Reuse
+For UI or server work, read relevant existing `reuse.md` catalogs. Reuse
 or enhance the narrowest existing owner before adding a new abstraction.
 
 ## Implementation Constraints
@@ -91,16 +108,20 @@ evidence rather than duplicating it. Keep scenario/Flow links bidirectional.
 2. Implement the smallest coherent code and schema change, including symmetric
    models and migrations where required.
 3. Run code generation only when required by changed sources.
-4. Add or update focused tests when needed to prove changed behavior. Compare
-   results with approved expectations, not just with newly written assertions.
+4. In standalone work, add/update planned tests and compare results with approved
+   expectations. In a delegated role, preserve test ownership with the parent
+   and communicate interface/testability changes without writing or running tests.
 5. Update affected reuse catalogs and documentation owners.
 6. Run the project-declared documentation checks when specs change and report
    any unavailable validation.
-7. Run the plan’s narrow checks first, then justified broader checks.
+7. Run the checks assigned to this role, narrow checks first. Defer checks that
+   require another subplan to the parent with the exact dependency recorded.
 8. Check every completion criterion against the actual diff and validation
    evidence. Stage only planned paths or task-owned hunks, then inspect the
    index. An allowed filename does not authorize its unrelated edits.
-9. Stop implementation edits and hand off to `fs-dev-review`. Any separately
+9. Delegated children return their actual commit, changed paths, fulfilled
+   criteria, checks run, unrun tests, and blockers to the parent. Standalone
+   work hands off to `fs-dev-review`. Any separately
    authorized release follows the project's review/release procedure; keep the
    review step read-only.
 

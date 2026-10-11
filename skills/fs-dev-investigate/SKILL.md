@@ -14,6 +14,11 @@ description: >-
 Explain the causal break from intended human behavior to implementation and
 propose the smallest fix that restores it.
 
+In an approved orchestration loop, use this skill when a failure needs root-cause
+investigation; send findings to the parent. Routine repairs already covered by
+the approved plan use `fs-dev-iterate` without another human approval. A proposal
+that changes accepted behavior still returns to planning.
+
 ## Authority And Boundary
 
 - Read specs, code, logs, databases, tests, and runtime state. Use the project's
@@ -42,7 +47,7 @@ report missing required context or validation instead of claiming completeness.
 
 ## Documentation And Architecture Context
 
-Read `spec/conventions/Documentation_Conventions.md` and follow the affected
+Read existing project documentation conventions and follow the affected
 path:
 
 ```text
@@ -92,4 +97,6 @@ Write:
 7. **Risk Assessment**
 
 Include the project-declared documentation checks when the fix changes specs.
-End with: **Ready for approval**
+For a new fix plan, end with **Ready for approval**. For investigation inside an
+approved run, identify the violated criterion, supported cause, and in-scope next
+action; distinguish any new decision that actually needs approval.

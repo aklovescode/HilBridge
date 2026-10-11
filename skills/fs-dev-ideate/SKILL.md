@@ -43,7 +43,7 @@ report missing required context or validation instead of claiming completeness.
 
 ## Documentation Context
 
-Read `spec/conventions/Documentation_Conventions.md`, the relevant Vision
+Read existing project documentation conventions, the relevant Vision
 headings, and linked cross-domain notes. Use project-configured discovery tools
 when available, then direct reads and `rg` for exact text.
 
@@ -58,7 +58,9 @@ Vision -> Technical Flow -> Module -> Code
 ```
 
 Contracts hold durable boundaries when useful. Ideation changes only the
-upper human authority; later skills derive the lower layers.
+upper human authority; later skills author the appropriate lower-layer human
+meaning and its derived guidance. Human View means reviewable authority, not a
+requirement to interrupt an approved execution for every documentation change.
 
 ## Workflow
 

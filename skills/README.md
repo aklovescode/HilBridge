@@ -11,6 +11,27 @@ They replace the older `fullstack-*` skills previously under `.agents/skills`.
 Project requirements belong in each target repository's `AGENTS.md`, relevant
 `PRODUCT.md` and `DESIGN.md`, specifications, and source.
 
+## Delegated Development In Codex
+
+Start in actual Codex Plan mode with [fs-dev-plan](fs-dev-plan/SKILL.md). It
+includes test cases and, when useful, subplans with dependencies and file
+ownership. After approval and switching to execution mode, use
+[fs-dev-orchestrate](fs-dev-orchestrate/SKILL.md): implementation children work
+in separate worktrees while the parent writes tests, integrates, runs validation,
+and resolves independent review findings. Final integration and cleanup follow
+the approved execution scope. Push/deployment are included only when authorized.
+
+Human View remains the authoritative, human-reviewable product/design meaning.
+Routine execution and fixes within an approved plan do not require repeated
+human review. A new material decision returns to the user.
+
+The family is installed together: development planning uses
+[shared test design](fs-test-plan/references/test-design.md), and orchestration
+uses the implementation, testing, review, and iteration skills. Standalone
+implementation and testing remain available. Saved run state supports resuming
+an interrupted chat; it does not create an unattended scheduler or guarantee
+execution after the app stops. No SDK is required for this app-based workflow.
+
 ## Sync To The User-Level Installation
 
 From the HilBridge checkout, preview changes before copying:

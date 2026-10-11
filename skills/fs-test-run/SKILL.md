@@ -4,7 +4,8 @@ description: >-
   Runs the smallest relevant project unit, integration, server, or E2E tests;
   analyzes logs and artifacts against the Vision-first specification graph;
   classifies product bugs, test defects, environment blockers, and known gaps;
-  and writes current_task/changes_summary.md. Use for validation and test triage. Does not
+  and writes a separate test report. Use for validation and test triage, including
+  parent-owned execution alongside an independent review child. Does not
   fix code, tests, or documentation.
 ---
 
@@ -28,8 +29,11 @@ evidence for the smallest correct next action.
 
 - Read specs, source, tests, plans, logs, reports, and artifacts; run safe,
   non-destructive tests and inspections.
-- Write the project-designated test report (default: `current_task/changes_summary.md`);
+- Write the project-designated test report (default: `current_task/test_results.md`);
   capture generated reports/artifacts only in the project-designated location.
+- In delegated delivery, use the parent's candidate-specific report path. Keep
+  review findings and test output in separate files; do not overwrite another
+  role's report or earlier failure evidence.
 - Do not change application, tests, fixtures, specs, plans, assertions, or
   environments. Do not suppress or fix failures.
 - Stop after the report. Record an evidence-backed blocker when prerequisites
@@ -37,7 +41,7 @@ evidence for the smallest correct next action.
 
 ## Choose Evidence
 
-Read `spec/conventions/Documentation_Conventions.md` and the owning notes:
+Read existing project documentation conventions and the owning notes:
 
 - Flow Derived Delivery Guidance for behavioral SIT/integration/E2E commands.
 - Module for unit/widget/server-unit commands.
@@ -55,8 +59,9 @@ additional localization or confidence. Do not use retired feature-file runners.
 ## Workflow
 
 1. Establish target behavior, environment, owning evidence note, and exact
-   command. Confirm destructive setup targets before allowing a runner to reset
-   state.
+   command. Record candidate commit/tree and environment/fixture identity;
+   inspect dirty state and keep source fixed for this run. Confirm destructive
+   setup targets before allowing a runner to reset state.
 2. Run and capture command, pass/fail result, assertion, stack trace, logs,
    screenshots, scenario artifacts, and environment facts.
 3. Rerun a focused failing case when ordering, fixture state, or flakiness is
@@ -71,7 +76,14 @@ additional localization or confidence. Do not use retired feature-file runners.
 5. For a product bug, identify the violated human statement/invariant, first
    causal layer, likely files, minimal reproduction, severity, and rerun
    command. Do not claim root cause beyond the collected evidence.
-6. Stop when each failure is classified and the next action is clear.
+6. Stop when each failure is classified and the next action is clear. In an
+   orchestration loop, return this evidence to `fs-dev-iterate` without requiring
+   a human approval for routine fixes within the approved plan.
+
+Poll the review child between commands or while a nonblocking test process runs.
+Queue findings for the next iteration rather than editing source during a run.
+Do not repeat a current passing suite unless a relevant change or unresolved
+concern justifies it. A report applies only to the source/environment it exercised.
 
 ## Output
 

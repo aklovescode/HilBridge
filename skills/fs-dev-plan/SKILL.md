@@ -1,11 +1,10 @@
 ---
 name: fs-dev-plan
 description: >-
-  Produces an approval-ready implementation plan from user intent,
-  staged or referenced spec/ notes, project context, and source evidence. Maps
-  visible behavior through Vision, UI Surfaces, Flows, Modules, and Code;
-  includes Contracts or cross-domain notes only when their durable boundary
-  changes. Planning is read-only and does not edit workspace files.
+  Produces an approval-ready development plan in actual Codex Plan mode,
+  including concrete tests and, for delegated delivery, subplans, ownership,
+  dependencies, and execution authority. Uses user intent, specs, and source
+  evidence. Planning is read-only and does not edit workspace files.
 ---
 
 # Full-stack Dev — Plan
@@ -14,6 +13,20 @@ description: >-
 
 Produce a file-specific plan that can be implemented without reinterpreting
 human intent.
+
+## Plan Mode First
+
+Check the runtime's declared collaboration mode before planning. Require actual
+Plan mode; a prose plan, task checklist, or instruction saying "plan mode" does
+not establish it. If the mode is Default or cannot be verified, explain this
+requirement and ask the user to select Plan mode in the client. Do not pretend
+to switch it or invoke implementation. Use a supported mode-control tool only
+if one is actually exposed, then verify the resulting mode.
+
+In Plan mode, use the native planning response/artifact and available question
+tool. Do not save a workspace plan file during this read-only phase. After
+approval and the switch to execution mode, the executor preserves that exact
+approved plan using the project's handoff convention.
 
 ## Authority And Boundary
 
@@ -44,7 +57,7 @@ report missing required context or validation instead of claiming completeness.
 
 ## Required Context
 
-Read `spec/conventions/Documentation_Conventions.md` and the affected path:
+Read the project's documentation conventions when present and the affected path:
 
 ```text
 Visible capability:
@@ -91,12 +104,37 @@ path-local catalogs. Prefer an existing reusable owner.
    - Module for changed program responsibility, code paths, and unit evidence.
    - Contract for a changed durable boundary.
    - Cross-domain, Operations, or test scenario for their owned knowledge.
-7. If the requested implementation needs human behavior absent from the
-   authoritative human sections, surface the decision for approval; do not plan
-   it only as Derived Delivery Guidance.
-8. Tie each completion criterion to an observable result and exact narrow
-   validation command, including project-declared documentation checks when
-   specs change. Include failure/recovery cases relevant to the change.
+7. If requested behavior is absent from the authoritative human sections,
+   include the supplied intent and its owning spec update in the plan. Ask only
+   for a still-missing material decision; do not introduce behavior solely in
+   Derived Delivery Guidance or ask again for a decision already supplied.
+8. Read [test design](../fs-test-plan/references/test-design.md) and include
+   concrete test additions/updates, fixtures, testability seams, expected
+   results, and exact commands. Include project-required checks. Do not hand
+   off testing as "add tests later" or require a separate fs-test-plan approval.
+9. For delegated delivery, use the decomposition and authority rules below.
+
+## Delegated Delivery
+
+Use `fs-dev-orchestrate` after approval when the user requests delegated delivery.
+Split a large plan only along useful responsibility boundaries. Each subplan
+needs acceptance criteria, owned paths, dependencies, agreed interfaces, and
+relevant context beyond the plan. Keep tightly coupled edits with one child;
+use dependency waves rather than parallel writers to the same file.
+
+Assign production code, production testability hooks, and specific Module notes
+to implementation children. Assign tests, fixtures, harness configuration,
+shared documentation, and verification evidence to the parent. Children do not
+author or run tests; list their allowed typecheck/build/documentation checks.
+List deferred full-project checks for the parent if a subplan cannot run them
+before its dependencies are integrated.
+
+The execution section names the base/destination branch, local checkpoint
+commits, integration branch, final commit strategy, independent review, test/fix
+loop, and worktree cleanup. State any push/deployment or external action and its
+authorization separately. Approval of this explicit execution scope carries
+through routine child handoffs and in-scope fixes; new material decisions return
+to the user. Note resource limits or unavailable capabilities that affect delivery.
 
 ## Output
 
@@ -105,12 +143,12 @@ Write the active plan with:
 1. **Scope & Intent**
 2. **Relevant Specs**
 3. **Design Summary**
-4. **Proposed Changes** — file-specific code, documentation, and tests
-5. **Validation / Handoff**
-6. **Risks / Gaps**
+4. **Proposed Changes** — code/docs and subplans with dependencies/ownership
+5. **Test Plan** — cases, expected outcomes, fixtures/seams, paths, and commands
+6. **Execution / Handoff** — roles, context, integration, review, and authority
+7. **Risks / Gaps**
 
 State dependencies, completion criteria, affected paths, and any external action
-requiring separate authorization. Preserve the approved plan for a later session
-using the project's handoff convention when requested; do not assume this permits
-an otherwise prohibited workspace write. Omit speculative alternatives.
+requiring separate authorization. Include only sections needed by the task;
+do not force decomposition or new infrastructure for a small change.
 End with: **Ready for approval**
