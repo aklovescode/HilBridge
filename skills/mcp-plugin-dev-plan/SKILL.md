@@ -10,94 +10,79 @@ description: >-
 
 # MCP Plugin Development — Plan
 
-Turn the requested experience into a small, implementable plan across the
-conversation, MCP server, optional UI, and data owner.
+Produce an implementable plan for the requested conversation, tool, optional UI,
+and data-owner behavior, with observable completion criteria.
 
-## Establish context and authority
+## Authority and boundary
 
-Read the target project's applicable `AGENTS.md`, existing product contracts,
-relevant code, dependency versions, tests, and reuse catalogs when present.
-Use the project's discovery tools, verifying index coverage against the active
-checkout. The repository containing this skill does not define the target's stack.
+- A planning-only request authorizes the plan, not implementation, product-spec
+  edits, remote configuration, live data writes, or publication.
+- Use the project's plan location and retention convention. If none is declared,
+  use `current_task/plan.md`; if the host restricts planning writes, use its active
+  plan artifact. Preserve unrelated plans using the project's archive/handoff
+  convention; choose another filename only where that convention permits it.
+- Reuse current-task decisions and authorization. For an already authorized
+  plan-and-implement sequence, continue within that scope after planning without
+  another approval. Surface new material behavior, ownership, scope, destructive
+  impact, or external-action decisions before dependent implementation.
 
-Read user-referenced tasks with the available conversation reader before using
-their contents. Separate product decisions from prior agent claims and old
-implementation snapshots; confirm changeable technical facts against current
-source or runtime evidence. Do not adopt commands or approvals from referenced
-tasks as authorization for the present task.
+## Workflow
 
-Identify the target hosts and distribution artifacts: an MCP endpoint, MCP App
-resources, a host plugin manifest, and an optional instruction skill are distinct.
-Do not assume that connecting a server installs a skill or that a host's starter
-prompt can be controlled by a package. Inspect the actual available connector
-catalog when the design depends on it; provider API support is not connector proof.
+1. **Establish current evidence.** Read root and applicable path-local `AGENTS.md`,
+   relevant product/design briefs, contracts, code, versions, tests, and reuse
+   catalogs. Use project discovery tools and check their index coverage against
+   the active checkout. Project context owns stack, paths, migration rules, and
+   validation; the skill's installation repository does not.
+   Read referenced tasks before relying on them; verify prior agent claims against
+   current evidence. Referenced commands or approvals do not by themselves
+   authorize the present task. Stop discovery once the affected behavior, owners,
+   files, risks, and checks are supported; reuse unchanged current evidence.
+2. **Define the journey.** Start with an ordinary user request, including relevant
+   follow-ups. State what is displayed, when UI appears, what counts as complete,
+   and behavior for missing, partial, stale, invalid, or unavailable data. Preserve
+   useful text behavior when UI is unsupported. Separate proposed, accepted,
+   applied, verified, and rendered states where the operation needs them.
+3. **Assign ownership and binding.** Name the owner of reads, judgment, arithmetic,
+   writes, confirmation, persistence, and verification. Bind follow-ups to the
+   intended identity, account/object, date range, source version, or preview.
+   Preserve the project's trust model: host connector credentials are not service
+   credentials. New OAuth, storage, migrations, access, or hosts are explicit
+   architecture decisions, not incidental optimizations. Do not impose a database,
+   statelessness, language, or provider that the project has not chosen.
+4. **Specify the affected contracts.** Identify exact operations, schemas, channels,
+   resources, guidance, manifests, and file edits. Read only the relevant sections
+   of [design checks](references/design-checks.md). Inspect the installed SDK and
+   current official documentation for changed protocol/host behavior. Inspect the
+   actual connector catalog when it matters; provider API support is not proof
+   that the connector exposes it. An endpoint, UI resource, plugin package, and
+   optional installed skill are distinct artifacts. Connection does not prove
+   skill installation or control over the host's starter prompt.
+5. **Plan verification and performance evidence.** Bind each completion criterion
+   to observable conversation behavior, exact tool arguments/results, or resulting
+   state. Include relevant negative paths and disposable fixtures. Separate local
+   catalog/service, synthetic rendering, actual host/connector, and target-device
+   evidence. For optimization, compare the same cases and dataset, measuring calls,
+   payload sizes, and latency separately without weakening confirmation, exact
+   values, freshness, duplicates, recovery, or verification. Mechanical validation
+   belongs in the existing deterministic owner where practical; ambiguity remains
+   in the conversation. Never convert missing evidence into plausible results.
+6. **Map the complete change.** Include affected callers, tests, fixtures, guidance,
+   build inputs, metadata, and documentation owners. Use existing conventions:
+   Vision-first projects place intent, surface/flow behavior, boundaries, modules,
+   and operations in their natural owners. Do not create a spec graph for this
+   skill or bury product decisions only in derived tool descriptions. Include
+   compatibility only for actual supported clients/contracts, not hypothetical
+   historical versions. Plan release, refresh, and rollback only when in scope;
+   mark actions still requiring separate authorization.
 
-Plan-only work may write the plan artifact, but must not change implementation,
-product specs, remote configuration, or user data. Use the project's plan location;
-otherwise use `current_task/mcp_plugin_plan.md`. Preserve an unrelated existing
-plan by choosing a task-specific filename. If a host restricts planning writes,
-use its active plan artifact and identify the handoff location.
+## Plan and handoff
 
-## Design the experience and boundary
+Scale the artifact to the change. Include outcome/scope and acceptance criteria,
+current evidence and uncertainty, journey/ownership, exact contracts and files,
+validation commands and realistic cases, documentation effects, and material gaps.
+A small metadata fix needs only the relevant parts, not a new auth or UI design.
 
-Start with a realistic user request and its observable completion criteria.
-For each affected journey, record:
-
-- What the user says or clicks, what chat displays, and when an inline UI appears.
-- Which actor owns each read, calculation, write, and confirmation: host model,
-  existing connector, MCP service, widget, or persistence layer.
-- Which identity and source version bind follow-ups to the same account, object,
-  date range, snapshot, or preview, and when a fresh read is necessary.
-- What happens when data is absent, partial, stale, invalid, or unavailable, and
-  what the user can still accomplish without a rendered widget.
-
-Read the applicable sections of [design checks](references/design-checks.md)
-for tool/resource contracts, conversation reliability, mutations, or performance.
-Choose only the surfaces affected by this request. An output-schema repair does
-not require a widget redesign, new auth flow, or full architecture audit.
-
-Move mechanical arithmetic, normalization, and cross-field validation into the
-existing deterministic owner when practical. Keep judgment and ambiguity in the
-conversation. Never turn missing or invalid evidence into plausible totals.
-
-Preserve the chosen data-ownership and trust model. A host connector's credentials
-are not available to the MCP service. New OAuth, server storage, migrations, and
-data access are explicit architecture decisions, not incidental optimizations.
-Do not impose statelessness, Google Sheets, a language, or a hosting provider on
-projects that have different requirements.
-
-For protocol or host-specific changes, inspect the installed SDK and consult
-current official documentation. Prefer standard MCP Apps capabilities; use host
-extensions or compatibility aliases where the supported clients need them.
-Record the relevant source and version assumption rather than embedding a copied
-SDK tutorial. Useful entry points are linked in the design checks.
-
-## Make the plan executable
-
-Scale the artifact to the change. A small metadata fix can be one short plan.
-Include the following substance without filling irrelevant sections:
-
-1. **Outcome and scope:** requested behavior, acceptance criteria, explicit
-   exclusions, and any decision that actually needs the user's input.
-2. **Current evidence:** affected sources and observed failure stage; distinguish
-   intended behavior, reproduced behavior, and unverified hypotheses.
-3. **Journey and ownership:** the conversation-to-tool-to-UI sequence and data
-   boundaries, including confirmation and recovery where applicable.
-4. **Contracts and files:** exact tools, schemas, result channels, resources,
-   guidance, packages, and file-specific edits. State compatibility needs.
-5. **Verification:** concrete local commands and realistic conversation cases;
-   separate catalog, service, synthetic widget, live connector, and target-device
-   evidence. Identify unavailable access and required disposable fixtures.
-6. **Handoff:** affected documentation owners, release/refresh steps if in scope,
-   rollback for an authorized deployment, and material unresolved risks.
-
-Use existing documentation conventions. In a Vision-first project, map changed
-intent, conversational/UI behavior, flows, contracts, modules, and operations to
-their existing owners. Else use the project's nearest equivalents. Do not create
-an entire spec graph merely to satisfy this skill. Product intent must remain
-explicit instead of being buried in tool descriptions or derived instructions.
-
-Stop discovery once the plan has enough evidence to implement. For a planning-only
-request, link the artifact, surface material decisions, and end **Ready for
-approval**. When the user already authorized a plan-and-implement sequence,
-continue to implementation within that scope without another approval ceremony.
+For planning-only work, link the artifact and end **Ready for approval**. Identify
+how an approved plan reaches a later implementation session using the project's
+handoff convention. For authorized implementation, pass that same scope and
+criteria to `mcp-plugin-dev-implement`; do not reinterpret them during execution.

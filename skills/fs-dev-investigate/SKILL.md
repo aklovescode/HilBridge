@@ -9,22 +9,6 @@ description: >-
 
 # Full-stack Dev — Investigate
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Explain the causal break from intended human behavior to implementation and
@@ -33,7 +17,9 @@ propose the smallest fix that restores it.
 ## Authority And Boundary
 
 - Read specs, code, logs, databases, tests, and runtime state. Use the project's
-  discovery tools, language tooling, and debugger evidence when useful.
+  discovery tools, language tooling, and debugger evidence when useful. Keep
+  inspections read-only and use non-destructive reproductions; live writes or
+  destructive setup need separate authorization.
 - Write only the active planning artifact. Do not modify workspace files,
   suppress failures, add features, or redesign behavior.
 - Treat the relevant human spec sections as intended behavior and code/runtime
@@ -41,6 +27,18 @@ propose the smallest fix that restores it.
   silently.
 - Ask only when missing access or a product decision prevents a supported root
   cause. Stop after the fix plan.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Documentation And Architecture Context
 
@@ -68,13 +66,16 @@ constraints declared in the target project's `AGENTS.md` and linked specs.
 3. **Runtime path:** trace the narrow path through the relevant interface,
    application logic, integrations, and persistence. Correlate tool output with
    source and logs.
-4. **Root cause:** identify the first causal break, why it violates intent, and
-   which owner must change.
+4. **Root cause:** identify the first supported causal break, why it violates
+   intent, and which owner must change. Distinguish observations, hypotheses,
+   and confirmed causes; an opaque provider rejection is not proof of a bug
+   in the submitted data or application.
 5. **Minimal fix:** name exact files, behavior-preserving correction, required
    regression evidence, and affected documentation notes.
 6. Stop tracing when the symptom, violated intent, cause, fix surface, and
    verification are supported. If reproduction is unavailable, record the
-   evidence gap instead of widening the search.
+   evidence gap instead of widening the search or inventing certainty. Reuse
+   current evidence until the relevant source, environment, or symptoms change.
 7. If the fix would introduce behavior absent from the human authority, return
    to product planning rather than hiding it in Derived Delivery Guidance.
 

@@ -10,22 +10,6 @@ description: >-
 
 # Full-stack Dev — Review
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Give the human reviewer a concise, evidence-backed account of plan alignment,
@@ -37,8 +21,22 @@ material defects, documentation drift, and validation risk.
   missing, report the exact blocker.
 - Read the plan, `spec/conventions/Documentation_Conventions.md`, affected
   authoritative specs, and `git diff --cached`.
-- Write only `current_task/changes_summary.md`. Do not fix code, change specs,
-  restage files, or expand the inferred scope.
+- Write only the project-designated review report (default:
+  `current_task/changes_summary.md`), plus project-required archival of an unrelated
+  prior report. Follow its retention/handoff rules; do not overwrite another task's
+  evidence. Do not fix code, change specs, restage files, or expand inferred scope.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Review
 
@@ -46,6 +44,9 @@ material defects, documentation drift, and validation risk.
 
 - Confirm every staged change is required by the plan and every completion
   criterion is addressed.
+- Compare the actual staged result with the approved requirement, independently
+  of the implementer's completion claim. Inspect working-tree differences where
+  tests may have exercised content that is not staged.
 - Compare visible behavior with Vision and UI human sections, temporal behavior
   with Flows, and durable meaning with Contracts/cross-domain notes.
 - Flag behavior that exists only in Derived Delivery Guidance or code.
@@ -72,6 +73,9 @@ material defects, documentation drift, and validation risk.
   commands in Contracts, and operational commands in Operations.
 - Check the project-declared documentation validation when specs changed and
   record any validation that was skipped, unavailable, or weakened.
+- Check commands, results, tested revision, and relevant failure/recovery
+  coverage. Reuse current evidence; run safe focused checks when it is missing
+  or stale. A passing unit check does not prove an untested integration or UI.
 - Confirm `spec/doc_issues.md` records unresolved intent/code drift.
 
 ## Output
@@ -85,4 +89,6 @@ Write:
 5. **Reviewer Focus**
 
 If there are no findings, say so explicitly. Lead the user handoff with
-findings, then plan alignment, caveats, and the next review action.
+findings, then plan alignment, caveats, and the next review action. Separate
+passed criteria, failed criteria, and unverified criteria; do not turn missing
+evidence into a pass or infer authorization to fix a finding.

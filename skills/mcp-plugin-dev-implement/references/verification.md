@@ -69,9 +69,21 @@ says “tool unavailable” does not establish an outage; a message-only reader 
 prove which tool was called. If actual host or device access is unavailable, retain
 the acceptance case and label it unverified rather than simulating a pass.
 
+Grade required intermediate milestones and final state separately. For mutations,
+derive expected values from the latest complete accepted proposal or explicit
+user-supplied authorized values, independently of the submitted payload. Check
+identity, scope, exact values/precision, relevant literal types, and side effects.
+Include applicable changed-proposal, already-approved, repeat-confirmation,
+decline, duplicate, and failure/uncertain-status cases. A verified write does not
+erase a missing required preview or renderer invocation. An acknowledgement or
+the agent's success claim does not prove actual UI delivery or persistence.
+
 For live connector tests, verify available operations and the intended account,
-use an authorized disposable destination, and perform source readback. Do not
-reseed personal data or publish/share a fixture merely to complete testing. Native
+use an authorized disposable destination, and verify source state. A native write
+response can supply this proof when the contract permits it and identity, exact
+values/types, and required coverage/version are complete; otherwise use targeted
+readback. Do not reseed personal data or publish/share a fixture merely to complete
+testing. Native
 formula correctness, recalculation timing, and copy permissions need provider-side
 evidence when those behaviors are in scope.
 
@@ -82,7 +94,8 @@ Locate the first failing boundary before choosing a fix:
 | Evidence | Next check |
 |---|---|
 | Tool absent or host warning | Discovery metadata, package/connection version, auth, host refresh |
-| Call rejected | Capture the minimal failing input; inspect schema, coverage, date and unit constraints |
+| Validation rejected | Capture sanitized failing input and the reported field/schema error; inspect coverage, dates, and units |
+| Provider safety/approval rejection | Preserve the actual error and safe correlation metadata; distinguish it from validation or API failure |
 | Result accepted but blank UI | Resource link/fetch, asset/CSP errors, bridge event delivery and identity |
 | Write succeeded but display failed | Preserve receipt and write result; repair presentation or give text |
 | Timeout during a write | Read back or check the idempotency record before any repeat |
@@ -92,6 +105,12 @@ For a field-correctable presentation error, normally make one correction from th
 same verified evidence. For repeated or opaque failures, stop automatic retries
 and surface the useful fallback plus the actual blocker. Retries must have a
 reason to succeed and must preserve source freshness and mutation semantics.
+
+After an explicit safety/approval rejection, do not automatically retry, rephrase,
+or reroute the rejected logical write. Preserve the approved proposal; use an
+authorized read to resolve uncertain persistence where needed, then report the
+blocker. Internal review reasons may be unavailable; do not infer them from a
+generic rejection or treat a later successful call as an explanation.
 
 When instrumentation is necessary, use payload-free method/stage/status/duration
 and safe correlation tokens. Do not log user datasets, auth material, or private
@@ -114,3 +133,18 @@ the deployment topology makes them relevant.
 For optimization, compare the same journey and dataset before/after. Report call
 counts, bytes, service time, and end-to-end latency separately, including cache
 state and sample limitations. Keep correctness and freshness checks intact.
+
+For multi-turn workflow comparisons, freeze the prompt sequences, fixtures,
+expected-state rules, revision/package identity, and evaluation criteria before
+the round. Use isolated disposable data, relevant corrections/negative cases,
+and independent checks of arguments, milestones, and final state. Record host,
+model, cache, and personalization conditions; change account settings only when
+authorized and restore temporary changes afterward. Keep private traces out of
+public packages and reports.
+
+Record each published baseline/candidate's immutable revision or tag using the
+project's release convention. Preserve failed cases and distinguish full rounds
+from early stops; do not combine different candidates' passes or repair fixtures
+mid-round to claim success. Repeated/counterbalanced runs and fresh holdout cases
+are needed before claiming reliable superiority or a causal improvement. A
+single passing round supports that tested configuration, not a universal rule.

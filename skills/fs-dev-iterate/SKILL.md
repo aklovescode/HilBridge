@@ -9,22 +9,6 @@ description: >-
 
 # Full-stack Dev — Iterate
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Resolve review feedback completely while preserving the approved intent and
@@ -33,14 +17,28 @@ keeping the follow-up diff attributable to that feedback.
 ## Authority And Approval Boundary
 
 - Require the approved plan, `current_task/changes_summary.md`, and human
-  feedback from chat or `current_task/review_feedback.md`.
+  feedback from chat or `current_task/review_feedback.md`, using project artifact
+  equivalents. If an input is missing, report that prerequisite; do not invent
+  approval or send an unchanged task back through planning.
 - Apply in-scope local changes and non-destructive validation without asking
   again.
 - Return to `fs-dev-plan` when feedback changes product behavior, ownership,
-  architecture, destructive impact, or material scope, or when a required input
-  is missing.
-- Do not commit, push, deploy, perform destructive actions, or stage unrelated
-  dirty work.
+  architecture, destructive impact, or material scope outside the approved plan.
+- Commit, push, deploy, destructive operations, and external writes require
+  separate authorization for that action. Honor authorization already given;
+  never stage unrelated dirty work.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Required Context
 
@@ -69,16 +67,20 @@ and applicable UI conventions. Keep testability hooks minimal.
 ## Workflow
 
 1. Map every feedback item to the approved plan and current staged/working
-   changes; identify any item requiring replanning.
+   changes; identify any item requiring replanning. Reuse unchanged approvals
+   and current source/validation evidence.
 2. Implement the smallest in-scope correction and focused regression evidence.
 3. Update affected reuse catalogs and documentation owners.
 4. Run the project-declared documentation checks when specs change and the
    narrowest relevant code/tests from the plan and feedback.
-5. Inspect the diff, stage only follow-up paths, and run `fs-dev-review` again
-   for a substantial batch.
+5. Check resolved feedback and original completion criteria against actual
+   results. Inspect the diff and index; stage only task-owned follow-up paths or
+   hunks. For a substantial batch, run `fs-dev-review` again without letting
+   iteration's write permission carry into the review-only step.
 
 ## Success Criteria And Output
 
 Lead with feedback resolved, any item returned for replanning, validation
 evidence, documentation effects, material caveats, staging status, and
-readiness for re-review. Omit generic process narration.
+readiness for re-review. Record commands/results and unmet or unverified criteria
+with their blockers. Omit generic process narration.

@@ -10,22 +10,6 @@ description: >-
 
 # Full-stack Dev — Ideate
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Turn the user’s idea into human-reviewable product intent without hiding design
@@ -44,6 +28,18 @@ or implementation decisions in lower-level guidance.
 - Read and search freely. Ask only when a missing product choice would
   materially change human intent. Stop after the ideation documents and
   non-destructive validation; do not implement, commit, push, or deploy.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Documentation Context
 
@@ -80,8 +76,9 @@ upper human authority; later skills derive the lower layers.
    instructions traceable to a named human statement.
 6. Run the project-declared documentation checks and report any unavailable
    validation.
-7. Stage only the documentation paths changed by this skill when the next step
-   will consume staged intent.
+7. Check the final diff against the user's idea and the authorized note scope.
+   When the next step consumes staged intent, stage only task-owned paths or
+   hunks and inspect the index; preserve unrelated existing edits.
 
 ## Success Criteria
 
@@ -94,4 +91,6 @@ upper human authority; later skills derive the lower layers.
 ## Output
 
 Lead with the intent captured, changed notes, validation result, unresolved
-decisions, and readiness for `fs-dev-plan`. Omit generic process narration.
+decisions, and readiness for `fs-dev-plan`. Cite the actual checks and mark
+unavailable evidence; capturing an idea is not implementation approval.
+Omit generic process narration.

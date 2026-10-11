@@ -9,22 +9,6 @@ description: >-
 
 # Full-stack Dev — Implement
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Deliver the approved outcome completely without changing its product intent or
@@ -33,14 +17,29 @@ expanding its scope.
 ## Authority And Approval Boundary
 
 - Require the approved plan from the current session or a saved workspace copy.
-  If it is missing, stop.
+  If it is missing, report that prerequisite before dependent edits. Bind work
+  to its approved outcome, paths, constraints, and completion criteria.
 - Once approved, make all in-scope local changes and run non-destructive
   validation without asking again.
 - Stop and return to planning when source evidence exposes a material
   contradiction or when success requires new behavior, ownership,
-  architecture, destructive action, external write, or scope.
-- Do not commit, push, deploy, or stage unrelated changes unless separately
-  requested.
+  architecture, destructive impact, or scope outside the approved plan.
+- Implementation approval covers in-scope local work and non-destructive checks.
+  Commit, push, deploy, destructive operations, and external writes require
+  separate authorization for that action. Honor authorization already given;
+  finish authorized steps without asking again. Never stage unrelated edits.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Required Context
 
@@ -92,16 +91,24 @@ evidence rather than duplicating it. Keep scenario/Flow links bidirectional.
 2. Implement the smallest coherent code and schema change, including symmetric
    models and migrations where required.
 3. Run code generation only when required by changed sources.
-4. Add or update focused tests.
+4. Add or update focused tests when needed to prove changed behavior. Compare
+   results with approved expectations, not just with newly written assertions.
 5. Update affected reuse catalogs and documentation owners.
 6. Run the project-declared documentation checks when specs change and report
    any unavailable validation.
 7. Run the plan’s narrow checks first, then justified broader checks.
-8. Inspect the final diff against the plan and stage only planned paths.
-9. Stop and hand off to `fs-dev-review`.
+8. Check every completion criterion against the actual diff and validation
+   evidence. Stage only planned paths or task-owned hunks, then inspect the
+   index. An allowed filename does not authorize its unrelated edits.
+9. Stop implementation edits and hand off to `fs-dev-review`. Any separately
+   authorized release follows the project's review/release procedure; keep the
+   review step read-only.
 
 ## Success Criteria And Output
 
 Lead with the delivered outcome, plan alignment, changed product/code surfaces,
-validation evidence, documentation changes, material caveats, and staging
-status. State any unrun check and why. Omit generic process narration.
+validation evidence, documentation changes, material caveats, and staging/release
+status. Record commands, results, and evidence locations. Mark unmet criteria or
+unrun checks and their concrete blockers; do not describe partial verification
+as a complete pass. Rerun affected checks after a relevant edit or environment
+change; otherwise reuse current evidence. Omit generic process narration.

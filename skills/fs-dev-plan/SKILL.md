@@ -10,22 +10,6 @@ description: >-
 
 # Full-stack Dev — Plan
 
-## Project Context
-
-Read the target project's root `AGENTS.md` and any applicable path-local
-`AGENTS.md` before applying this workflow. Take the technology stack, domain
-invariants, state ownership, repository layout, reuse catalogs, discovery tools,
-validation commands, and temporary migration rules from that project context.
-Do not infer them from the repository where this skill is installed.
-
-The paths below describe the default Vision-first documentation layout. Follow
-project-declared equivalents for documentation and task artifacts. Read existing
-conventions when present; do not bootstrap missing layers, tools, or validators
-unless the request requires them. If project guidance is absent, use the current
-request and repository evidence, and record material gaps rather than importing
-another project's assumptions. Run applicable available checks and report any
-missing validation.
-
 ## Goal
 
 Produce a file-specific plan that can be implemented without reinterpreting
@@ -41,8 +25,22 @@ human intent.
 - Ask only when a missing decision materially changes behavior, ownership,
   architecture, destructive impact, or scope. Otherwise make an evidence-backed
   assumption and record it.
+- Reuse explicit decisions and approvals from the current task; do not ask for
+  them again. A planning-only request still ends before implementation.
 - Stop after an approval-ready plan. Do not edit code/specs, stage, commit,
   push, deploy, or perform destructive actions.
+
+## Project Context
+
+Read the target project's root and applicable path-local `AGENTS.md` first.
+Use its stack, domain invariants, state ownership, paths, reuse catalogs,
+discovery tools, checks, task-artifact conventions, and applicable migration
+rules. Read project-local `PRODUCT.md` and `DESIGN.md` when relevant.
+
+Vision-first paths below are defaults; honor project equivalents. Do not import
+another project's assumptions or bootstrap missing layers, tools, or validators
+unless requested. Use available request/source evidence when guidance is absent;
+report missing required context or validation instead of claiming completeness.
 
 ## Required Context
 
@@ -81,7 +79,8 @@ path-local catalogs. Prefer an existing reusable owner.
 3. Follow Module/Contract `## Code` paths and inspect the current
    implementation, tests, dependencies, and reuse options.
 4. Stop discovery when behavior, ownership, files, dependencies, risks,
-   documentation effects, and validation are supported.
+   documentation effects, and validation are supported. Reuse inspected context
+   while its checkout, source, requirements, and environment remain current.
 5. Design the smallest coherent change. State interface, application logic,
    integration, persistence, migration, test, and operational work only when
    applicable.
@@ -95,8 +94,9 @@ path-local catalogs. Prefer an existing reusable owner.
 7. If the requested implementation needs human behavior absent from the
    authoritative human sections, surface the decision for approval; do not plan
    it only as Derived Delivery Guidance.
-8. List exact narrow validation commands, including project-declared
-   documentation checks when specs change.
+8. Tie each completion criterion to an observable result and exact narrow
+   validation command, including project-declared documentation checks when
+   specs change. Include failure/recovery cases relevant to the change.
 
 ## Output
 
@@ -109,5 +109,8 @@ Write the active plan with:
 5. **Validation / Handoff**
 6. **Risks / Gaps**
 
-State dependencies and completion criteria. Omit speculative alternatives.
+State dependencies, completion criteria, affected paths, and any external action
+requiring separate authorization. Preserve the approved plan for a later session
+using the project's handoff convention when requested; do not assume this permits
+an otherwise prohibited workspace write. Omit speculative alternatives.
 End with: **Ready for approval**

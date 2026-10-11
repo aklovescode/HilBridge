@@ -15,6 +15,13 @@ versioned guide tool/resource supported by the host. Do not hide required behavi
 only in an optional uploaded skill. Reuse one guidance source for packaged and
 served variants where feasible; retrieve substantial guide topics only as needed.
 
+Keep the primary ordinary workflow, authorization boundary, and completion
+contract easy to find. Put conditional procedures in focused references. For a
+fragile operation or serialization choice, include one concrete supported request
+example instead of more generic runtime teaching. Avoid competing copies of a
+normative rule across descriptions, guide topics, and packaged skills; verify
+their generated/served versions agree and reach the intended host configuration.
+
 Guidance can explain behavior; it cannot guarantee model execution. For a preview
 that must appear before confirmation, prefer attaching the UI resource to the
 preview-producing tool. The host fetches the resource; an additional model-called
@@ -70,10 +77,19 @@ validation feedback for genuine errors.
 When the operation requires a preview/confirmation contract, present the exact
 scope, changed/unchanged/excluded items, amounts or impact, and expiry before
 confirmation. Bind apply to that preview and enforce auth, stale-state detection,
-and retry semantics in the authoritative service. Tool annotations and widget
+and retry semantics in the authoritative mutation owner. Tool annotations and widget
 buttons do not enforce these rules. A help request or context answer does not
 authorize saving newly proposed values; an explicit instruction to save specified
 values may already supply the necessary authorization.
+
+Keep an accepted proposal's identity, scope, values, and displayed precision
+authoritative through apply and verification. A new or scaled proposal needs
+the contract's required acceptance; unchanged accepted values do not need another
+confirmation. Do not recompute a different payload from an earlier estimate.
+For example, an accepted value of 0.27 must not silently become 0.2725 at save.
+Specify duplicate prevention for repeated acceptance and absence of mutations for
+declined or superseded proposals. State clearly when a display includes pending
+data; neither rendering nor numeric validation proves persistence.
 
 A renderer failure must never repeat a successful write. Repair a malformed
 presentation payload from existing verified evidence where possible. Bound
@@ -87,6 +103,9 @@ connector calls, bytes, origin time, and end-to-end latency are separate metrics
 Prefer verified identity reuse, bounded/batched reads, compact projections or
 native summaries, and local navigation over speculative infrastructure changes.
 Preserve freshness, coverage, write verification, and invalidation after mutations.
+Use a native write response as proof only when it contains the contract's required
+identity, exact values/types, and source coverage/version. Otherwise plan targeted
+readback. Do not require a redundant read or trust a generic acknowledgement.
 For formula-backed sources, verify effective values and recalculation in the real
 provider; local fixture arithmetic alone cannot prove them.
 
@@ -95,6 +114,13 @@ the MCP endpoint or personalized results; protocol request/session identifiers,
 auth, POST/SSE behavior, errors, and user isolation make transport-level caching
 a separate design problem. An edge runtime and a CDN cache are different choices.
 Smaller payloads prove smaller payloads, not automatically lower latency.
+
+Use programmatic calling only where the actual host supports it and predictable
+bounded filtering, aggregation, or validation can return useful compact evidence.
+Keep approval boundaries, native artifacts/citations, and write proof intact.
+Do not assume it is newly enabled or that code orchestration automatically reduces
+calls; measure actual use and outcomes. Count task operations, guide/discovery
+calls, orchestration invocations, and resource requests separately.
 
 For diagnosis, trace discovery → invocation → validation → result/resource →
 bridge → render. Choose payload-free correlation, error stage, status, and timing
