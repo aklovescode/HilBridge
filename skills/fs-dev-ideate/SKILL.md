@@ -60,7 +60,7 @@ Vision -> Technical Flow -> Module -> Code
 Contracts hold durable boundaries when useful. Ideation changes only the
 upper human authority; later skills author the appropriate lower-layer human
 meaning and its derived guidance. Human View means reviewable authority, not a
-requirement to interrupt an approved execution for every documentation change.
+requirement to interrupt an authorized execution for every documentation change.
 
 ## Workflow
 

@@ -1,17 +1,17 @@
 ---
 name: fs-dev-implement
 description: >-
-  Implements an approved development plan or assigned subplan. In delegated
+  Implements an authorized development plan or assigned subplan. In delegated
   delivery, children own production code and assigned docs while the parent
   owns tests; standalone implementation includes planned tests. Validates the
-  assigned scope and hands off evidence without expanding approval.
+  assigned scope and hands off evidence without expanding authority.
 ---
 
 # Full-stack Dev — Implement
 
 ## Goal
 
-Deliver the approved outcome completely without changing its product intent or
+Deliver the authorized outcome completely without changing its product intent or
 expanding its scope.
 
 ## Assigned Role
@@ -19,29 +19,31 @@ expanding its scope.
 For an implementation child under `fs-dev-orchestrate`, use the assigned
 worktree, base commit, paths, and context packet. Verify the directory and base
 before edits; spawning a child does not itself change the working directory.
-Own production changes, approved production testability hooks, and assigned
+Own production changes, authorized production testability hooks, and assigned
 docs only. Do not create/update test cases, fixtures, or test harnesses and do
 not run tests. Run assigned typecheck/build/documentation checks; inspect scripts
 so an apparently non-test command does not run a test suite indirectly. Report
 any project check that must wait for integration. The parent owns test execution
 and final completion; do not claim this subplan is tested.
 
-Without that delegated assignment, implement the approved code, docs, and tests
+Without that delegated assignment, implement the authorized code, docs, and tests
 and run the planned validation as usual. Do not silently offload a standalone task.
 
 ## Authority And Approval Boundary
 
-- Require the approved plan from the current session or a saved workspace copy.
-  If it is missing, report that prerequisite before dependent edits. Bind work
-  to its approved outcome, paths, constraints, and completion criteria.
-- Once approved, make all in-scope local changes and run non-destructive
-  validation without asking again.
+- Require a completed plan from the current session or a saved workspace copy,
+  with implementation authority from the user's request/accepted decisions or
+  explicit plan approval. See [plan authority](../fs-dev-plan/SKILL.md#authority-and-boundary).
+  If a prerequisite is missing, report it before dependent edits. Bind work
+  to its authorized outcome, paths, constraints, and completion criteria.
+- Once planning and required questions are complete, make in-scope changes and
+  run non-destructive validation without asking again.
 - Stop and return to planning when source evidence exposes a material
   contradiction or when success requires new behavior, ownership,
-  architecture, destructive impact, or scope outside the approved plan.
-- Implementation approval covers in-scope local work and non-destructive checks.
-  Commits may be authorized by the approved orchestration plan; commit only
-  assigned work in the child worktree and return its SHA. Push, deploy,
+  architecture, destructive impact, or scope outside the authorized plan.
+- Implementation authority covers in-scope local work and non-destructive checks.
+  Honor local commit authority recorded in the handoff; children commit only
+  assigned work in their worktree and return its SHA. Push, deploy,
   destructive operations, and external writes require scoped authorization
   for that action. Honor authorization already given;
   finish authorized steps without asking again. Never stage unrelated edits.
@@ -77,7 +79,7 @@ or enhance the narrowest existing owner before adding a new abstraction.
 
 ## Documentation Rules
 
-Update only notes affected by the approved change:
+Update only notes affected by the authorized change:
 
 - Vision for changed human capability intent.
 - `spec/UI/` for changed visible behavior in place.
@@ -103,12 +105,12 @@ evidence rather than duplicating it. Keep scenario/Flow links bidirectional.
 
 ## Workflow
 
-1. Confirm the approved files, completion criteria, risks, validation, and
+1. Confirm the authorized files, completion criteria, risks, validation, and
    existing dirty state.
 2. Implement the smallest coherent code and schema change, including symmetric
    models and migrations where required.
 3. Run code generation only when required by changed sources.
-4. In standalone work, add/update planned tests and compare results with approved
+4. In standalone work, add/update planned tests and compare results with authorized
    expectations. In a delegated role, preserve test ownership with the parent
    and communicate interface/testability changes without writing or running tests.
 5. Update affected reuse catalogs and documentation owners.
@@ -119,6 +121,11 @@ evidence rather than duplicating it. Keep scenario/Flow links bidirectional.
 8. Check every completion criterion against the actual diff and validation
    evidence. Stage only planned paths or task-owned hunks, then inspect the
    index. An allowed filename does not authorize its unrelated edits.
+   Preserve unrelated edits and their existing staging state.
+   For example, when a file contains an initially unstaged user-edited setting
+   and your handler fix,
+   stage only the handler hunk (such as with `git add -p <path>`) and inspect
+   `git diff --cached -- <path>`. Leave the user's setting unchanged and unstaged.
 9. Delegated children return their actual commit, changed paths, fulfilled
    criteria, checks run, unrun tests, and blockers to the parent. Standalone
    work hands off to `fs-dev-review`. Any separately

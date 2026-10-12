@@ -1,12 +1,12 @@
 ---
 name: fs-test-implement
 description: >-
-  Implements an approved automated-testing plan with minimal
+  Implements an authorized automated-testing plan with minimal
   behavior-preserving testability hooks, existing harnesses, deterministic
   fixtures, and concrete tests in the project’s stack. Updates the owning
   Vision-first verification and E2E scenario notes, validates, and stages only
-  planned paths. Accepts an approved fs-test-plan or the testing section of an
-  approved fs-dev-plan, including parent-owned tests during delegated delivery.
+  planned paths. Accepts an authorized fs-test-plan or the testing section of an
+  authorized fs-dev-plan, including parent-owned tests during delegated delivery.
 ---
 
 # Full-stack Testing — Implement
@@ -22,20 +22,23 @@ specifications and explicit user intent define expected behavior.
 
 ## Goal
 
-Deliver the approved automated evidence without weakening expectations or
+Deliver the authorized automated evidence without weakening expectations or
 changing production behavior to make a test pass.
 
 ## Authority And Approval Boundary
 
-- Require the approved test plan or integrated development plan's testing
-  section, from the session or saved project/run artifact. Do not require a
-  second approval or a particular filename when that approval already exists.
+- Require the completed test plan or integrated development plan's testing
+  section, from the session or saved project/run artifact, within the user's
+  implementation request/accepted decisions or explicit plan approval. See
+  [plan authority](../fs-dev-plan/SKILL.md#authority-and-boundary). Do not demand
+  a second approval or a particular filename; a planning-only request remains
+  planning-only.
 - Make its in-scope local changes and run non-destructive validation without
   further confirmation.
 - Return to the owning planning workflow when source/spec facts materially
   conflict with the plan or success requires changed behavior, ownership, architecture,
   destructive setup, or expanded scope.
-- Local checkpoint commits may be authorized by the approved orchestration
+- Local checkpoint commits follow recorded task authority in the orchestration
   plan. Honor that authority without asking again; do not infer push/deployment
   or destructive reset authority. Preserve unrelated dirty work.
 
@@ -70,11 +73,11 @@ Verification ownership:
 
 The parent writes tests, fixtures, and harness/configuration changes in its
 integration worktree while implementation children work elsewhere. Production
-testability hooks belong to their assigned child; communicate the approved seam
+testability hooks belong to their assigned child; communicate the authorized seam
 instead of editing that child's paths. The parent owns assigned shared specs and
 verification notes to avoid competing documentation edits.
 
-Build tests from approved behavior, not the child's completion claims. Author
+Build tests from authorized behavior, not the child's completion claims. Author
 against agreed interfaces and finish wiring after integration. Capture useful
 baseline failures when runnable, but do not describe missing implementation as
 a final test result. Defer implementation-dependent tests until the candidate is
@@ -85,7 +88,7 @@ integrated; the orchestration parent runs final tests alongside independent revi
 1. Confirm plan scope, existing dirty state, target environments, and
    completion criteria.
 2. Implement planned harness/fixture support and concrete tests. In standalone
-   work also implement approved minimal production hooks; in delegated work
+   work also implement authorized minimal production hooks; in delegated work
    coordinate those hooks with their assigned owner.
 3. Update the owning documentation notes. Keep `## Human View` authoritative;
    verification instructions in Derived Delivery Guidance must trace to the

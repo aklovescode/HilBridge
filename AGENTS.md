@@ -170,11 +170,16 @@ now; diagrams are not rendered by the app.
 
 ## Skill Workflow Guidance
 
-- For delegated delivery, use `fs-dev-plan` in actual Codex Plan mode, then
-  `fs-dev-orchestrate` after approval in execution mode. Skills cannot switch
-  the client's mode by declaration. The approved plan includes implementation,
-  test cases, ownership, dependencies, and local commit/integration/cleanup
-  authority. Routine in-scope fixes and agent reviews reuse that approval.
+- For delegated delivery, use `fs-dev-plan` in Default mode for read-only
+  discovery, intent questions, and implementation questions, then continue
+  directly with `fs-dev-orchestrate` when the plan is complete and required
+  answers are supplied. The implementation request and accepted decisions can
+  authorize that scope without a separate plan approval. Planning-only requests
+  stop at the plan. Native Plan mode keeps its runtime restrictions; skills
+  cannot switch the client's mode by declaration. The authorized plan includes
+  implementation, test cases, ownership, dependencies, and local
+  commit/integration/cleanup authority. Routine in-scope fixes and agent reviews
+  reuse that authority.
 - The parent owns tests, fixtures, harness configuration, shared docs, and
   integration. Implementation children use separate worktrees and implement
   assigned production code/docs without authoring or running tests. Typecheck,
@@ -184,14 +189,18 @@ now; diagrams are not rendered by the app.
 - Integrate on a task branch and review an explicit base/head candidate while
   the parent runs tests on the same source tree. Use `fs-dev-iterate` for
   review/test findings, then repeat affected validation and independent review.
-  Advance the approved destination (normally `main`) only after completion
+  Advance the authorized destination (normally `main`) only after completion
   evidence passes. Preserve task commits/artifacts before worktree cleanup.
+  The plan names parent-owned cleanup: remove/archive a finished child's
+  disposable worktree after its output is verified integrated and recoverable.
+  Preserve the initial worktree inventory; verify no disposable task-created
+  worktrees remain at handoff, and report cleanup blockers without forcing removal.
 - Save delegated-run plans, context, state, and separate candidate review/test
   reports under `current_task/runs/<run-id>/`. Keep this separate from unrelated
   `current_task/plan.md` and `changes_summary.md`; put bulky logs and runtime
   artifacts under `artifacts/development/<run-id>/`. These files are task
   evidence, not specs or build inputs. Keep private context out of public commits.
-- Existing user decisions and an approved plan authorize their specified
+- Existing user decisions and an authorized plan carry their specified
   human-spec updates. Human View remains authoritative and reviewable; it does
   not require human approval of every in-scope edit. New material intent or
   architecture, publication, and destructive operations retain their applicable
@@ -200,19 +209,21 @@ now; diagrams are not rendered by the app.
   `npm run validate:docs`. Stage only the docs that belong to the task.
 - `fs-dev-plan` and `fs-dev-investigate`: use this file, `spec/`,
   source, and `current_task/` context to produce a concrete plan. Do not edit
-  source or specs while planning. In Plan mode, output the native plan; save
-  the approved copy only after returning to execution mode.
-- `fs-dev-implement` and `fs-dev-iterate`: implement the approved
+  source or specs while planning. In Default mode, save the task-owned plan;
+  in native Plan mode, output its native plan and save the completed copy only
+  after the runtime permits workspace writes. `fs-dev-investigate` remains a
+  standalone investigation that stops at its findings/fix proposal.
+- `fs-dev-implement` and `fs-dev-iterate`: implement the authorized
   plan, update affected specs, run the required validations, and stage only
   files/hunks in scope. Follow the delegated role's test/commit assignment.
 - `fs-dev-review`: review the staged batch or explicit base/head range against
-  the approved plan, specs, contracts, tests, and validations. Use the assigned
+  the authorized plan, specs, contracts, tests, and validations. Use the assigned
   run report; for standalone review use `current_task/changes_summary.md`.
   Do not fix code in the review step.
 - `fs-test-plan`: use the native Plan-mode output or, outside Plan mode, the
   task-owned `current_task/plan.md` for a testing-only plan. Development plans
   already include tests and do not need a second test-plan approval.
-- `fs-test-implement`: implement the approved standalone or integrated test
+- `fs-test-implement`: implement the authorized standalone or integrated test
   plan. Reuse existing commands unless the plan adds test infrastructure.
 - `fs-test-run`: run the requested commands, compare failures against
   specs, and write the assigned run test report or standalone

@@ -2,7 +2,7 @@
 name: fs-dev-review
 description: >-
   Independently reviews a staged implementation or explicit base/head commit
-  range against the approved plan, specs, and validation evidence. Use after
+  range against the authorized plan, specs, and validation evidence. Use after
   implementation or iteration, including as an orchestration review child.
   Reports findings and closure evidence; does not fix implementation or tests.
 ---
@@ -16,9 +16,11 @@ alignment, material defects, documentation drift, and validation risk.
 
 ## Authority And Boundary
 
-- Require the approved master plan/context and an explicit review target:
+- Require the authorized master plan/context and an explicit review target:
   either the staged batch or base/head commits. Read all relevant subplans.
-  If the target or approval is missing, report the exact blocker.
+  See [plan authority](../fs-dev-plan/SKILL.md#authority-and-boundary); the user's
+  implementation request/accepted decisions can supply authority without a
+  separate plan approval. If the target or authority is missing, report the blocker.
 - For staged work, inspect `git diff --cached` and its base/index identity.
   For committed work, verify the supplied SHAs, inspect `git diff BASE HEAD`,
   and read connected source at HEAD. An empty index after integration does not
@@ -50,11 +52,14 @@ report missing required context or validation instead of claiming completeness.
 
 - Confirm every change in the review target is required by the plan and every
   completion criterion is addressed.
-- Compare the actual result with the approved requirement, independently
+- Compare the actual result with the authorized requirement, independently
   of the implementer's completion claim. Inspect working-tree differences where
   tests may have exercised content that is not staged.
+  For example, passing tests after an unstaged fix do not validate the earlier
+  staged code. Record that mismatch; keep staged validation unverified until
+  evidence covers the actual review target.
 - Review the combined implementation, parent-authored tests, integration edits,
-  and cross-subplan effects. Compare test expectations with approved behavior;
+  and cross-subplan effects. Compare test expectations with authorized behavior;
   passing assertions cannot validate an incorrectly weakened expectation.
 - Compare visible behavior with Vision and UI human sections, temporal behavior
   with Flows, and durable meaning with Contracts/cross-domain notes.
@@ -106,7 +111,7 @@ findings, then plan alignment, caveats, and the next review action. Separate
 passed criteria, failed criteria, and unverified criteria; do not turn missing
 evidence into a pass or infer authorization to fix a finding.
 
-On another round, inspect the fixes and their effects on the approved whole.
+On another round, inspect the fixes and their effects on the authorized whole.
 Close a finding only with evidence on the current candidate. Explain rejected
 findings; do not silently drop them or demand a human rubber stamp for routine
 in-scope fixes. A required verification gap keeps the completion gate open.

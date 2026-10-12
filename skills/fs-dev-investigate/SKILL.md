@@ -14,9 +14,9 @@ description: >-
 Explain the causal break from intended human behavior to implementation and
 propose the smallest fix that restores it.
 
-In an approved orchestration loop, use this skill when a failure needs root-cause
+In an authorized orchestration loop, use this skill when a failure needs root-cause
 investigation; send findings to the parent. Routine repairs already covered by
-the approved plan use `fs-dev-iterate` without another human approval. A proposal
+the authorized plan use `fs-dev-iterate` without another human approval. A proposal
 that changes accepted behavior still returns to planning.
 
 ## Authority And Boundary
@@ -98,5 +98,5 @@ Write:
 
 Include the project-declared documentation checks when the fix changes specs.
 For a new fix plan, end with **Ready for approval**. For investigation inside an
-approved run, identify the violated criterion, supported cause, and in-scope next
+authorized run, identify the violated criterion, supported cause, and in-scope next
 action; distinguish any new decision that actually needs approval.

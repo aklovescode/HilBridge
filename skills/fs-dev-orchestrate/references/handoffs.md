@@ -17,8 +17,9 @@ deliberately and verify the resulting candidate before integration.
 
 Record:
 
-- approved plan version/digest and the user's approval reference, accepted
-  decisions, scope, and authorized local/external actions;
+- completed plan version/digest and the user's implementation request/decision
+  reference or explicit plan approval, accepted decisions, scope, and authorized
+  local/external actions;
 - repository, explicit base SHA, integration branch/worktree, and destination;
 - subplan dependencies, file ownership, agent identifiers, worktree paths,
   assigned base SHAs, produced commits, and actual integration status;
@@ -32,14 +33,16 @@ Record:
 Use separate report files per role/candidate so a test run cannot overwrite the
 review. For example, `review-<candidate>.md` and `tests-<candidate>.md` in the
 external run directory. Update state after dispatch, child completion,
-integration, each validation round, and finalization. Capture the approved plan
-after leaving Plan mode; a read-only planning turn must not create these files.
+integration, each validation round, and finalization. In Default mode, capture
+the completed plan before implementation. In native Plan mode, wait until the
+runtime permits workspace writes; do not claim an automatic mode transition.
+An agent-written plan is not evidence of the user's execution authority.
 
 ## Implementation Packet
 
 Give each child enough context to make its assigned decisions:
 
-- approved master plan and assigned subplan, with acceptance criteria;
+- authorized master plan and assigned subplan, with acceptance criteria;
 - relevant user decisions and constraints that the plan abbreviates;
 - exact spec headings, source findings, contract shapes, and unresolved issues;
 - dependency status, expected interfaces/test seams, assigned worktree and base;
@@ -51,7 +54,7 @@ verified files at the assigned revision. References must be accessible from the
 child's environment. Supply excerpts when a referenced conversation or artifact
 is unavailable there. Never rely on an uncommitted plan appearing in a worktree.
 
-Example dispatch (replace example values with the actual approved assignment):
+Example dispatch (replace example values with the actual authorized assignment):
 
 ```text
 Use fs-dev-implement in its delegated role for subplan API-1.
@@ -59,7 +62,7 @@ Approved context: <absolute plan path>, section API-1 and linked contracts.
 Worktree: <absolute worktree path>; expected base: <full SHA>.
 Own backend/src/handler.ts and its assigned Module note.
 The parent owns tests, fixtures, package configuration, and shared Flow notes.
-Implement the approved error contract and test seam. Do not author or run tests.
+Implement the authorized error contract and test seam. Do not author or run tests.
 Run the assigned typecheck/build checks. Local task commits are authorized.
 Return commit SHA, changed paths, fulfilled criteria, checks actually run,
 unrun tests, and blockers. Ask the parent about an ownership conflict.
@@ -70,7 +73,7 @@ unrun tests, and blockers. Ask the parent about an ownership conflict.
 Subagents may initially share the parent's directory. Create a worktree through
 the supported Codex tool and use its returned path; pass an explicit ref because
 the default may be the remote default branch. If managed worktrees are not
-available for this repository, use ordinary Git worktrees within the approved
+available for this repository, use ordinary Git worktrees within the authorized
 scope. Do not assume the spawn operation changes directories. Verify each
 child's repository/path and starting commit before it edits.
 
@@ -90,7 +93,7 @@ base, including changed/deleted/untracked paths. Only committed task-owned work
 is integrated; preserve and report unexpected dirty files. A file allowlist does
 not authorize unrelated edits inside that file.
 
-The reviewer receives the approved master plan, relevant subplans/decisions,
+The reviewer receives the authorized master plan, relevant subplans/decisions,
 base SHA, candidate SHA, known findings, and validation evidence. Prefer a fresh
 reviewer context, without implementer conclusions presented as facts. Review
 the complete combined change, including the parent's tests, integration edits,
@@ -100,6 +103,29 @@ Finalize history only within authority. A message-only amend changes a commit
 SHA but not its tree: record both identities. A squash/merge result must have
 the validated tree; source changes or target-base changes require new evidence.
 Never reset a destination checkout to force a merge through dirty user work.
+
+## Worktree Cleanup
+
+The parent owns cleanup. Use the initial inventory and run ledger, not a broad
+name pattern or a child's completion message, to identify task-created worktrees.
+Once a child has stopped, verify its commits are integrated and remain reachable,
+preserve its handoff/report and needed ignored artifacts, and inspect its dirty
+state before cleanup. Keep a checkout while any review, test, integration, or
+background command still uses it. Unexpected uncommitted work remains a blocker;
+do not force-remove it to make the inventory look clean.
+
+Archive managed worktrees through Codex's lifecycle tool using their recorded
+identity. Remove ordinary worktrees with `git worktree remove <recorded-path>`;
+this also removes their Git registration. Avoid blanket `git worktree prune` or
+directory deletion: a missing path or an old branch name does not establish task
+ownership. Reconcile any remaining stale task registration through the supported
+lifecycle mechanism or report the exact blocker. Preserve unrelated, original,
+shared, pinned, or still-active checkouts and reachable task history.
+
+After cleanup, compare the actual worktree inventory with the ledger and record
+removed/archived identities, retained checkouts, and blockers. A run is not fully
+cleaned up merely because its children finished. Final handoff requires every
+disposable task-created worktree to be gone and the result/artifacts recoverable.
 
 ## Resume
 

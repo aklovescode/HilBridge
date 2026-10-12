@@ -78,7 +78,7 @@ additional localization or confidence. Do not use retired feature-file runners.
    command. Do not claim root cause beyond the collected evidence.
 6. Stop when each failure is classified and the next action is clear. In an
    orchestration loop, return this evidence to `fs-dev-iterate` without requiring
-   a human approval for routine fixes within the approved plan.
+   a human approval for routine fixes within the authorized plan.
 
 Poll the review child between commands or while a nonblocking test process runs.
 Queue findings for the next iteration rather than editing source during a run.

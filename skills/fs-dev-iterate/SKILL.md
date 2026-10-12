@@ -2,30 +2,31 @@
 name: fs-dev-iterate
 description: >-
   Applies human or independent-agent feedback and test failures to the same
-  approved task. Updates in-scope code, tests, reuse catalogs, and spec notes,
+  authorized task. Updates in-scope code, tests, reuse catalogs, and spec notes,
   validates, and stages only the follow-up paths. Use after review or failed checks when
-  feedback does not materially change approved product intent or architecture.
+  feedback does not materially change authorized product intent or architecture.
 ---
 
 # Full-stack Dev — Iterate
 
 ## Goal
 
-Resolve review feedback completely while preserving the approved intent and
+Resolve review feedback completely while preserving the authorized intent and
 keeping the follow-up diff attributable to that feedback.
 
 ## Authority And Approval Boundary
 
-- Require the approved plan and concrete feedback: a human request, independent
+- Require the authorized plan and concrete feedback: a human request, independent
   review findings, or test-failure evidence with its candidate identity. Use the
   assigned run reports or project artifact equivalents. If a necessary input
-  is missing, report that prerequisite; do not invent
+  is missing, report that prerequisite. See [plan authority](../fs-dev-plan/SKILL.md#authority-and-boundary):
+  the original implementation request can supply authority; do not invent
   approval or send an unchanged task back through planning.
 - Apply in-scope local changes and non-destructive validation without asking
-  again. A failing implementation of approved behavior does not require fresh
+  again. A failing implementation of authorized behavior does not require fresh
   human approval to repair; preserve the accepted behavior and assertions.
 - Return to `fs-dev-plan` when feedback changes product behavior, ownership,
-  architecture, destructive impact, or material scope outside the approved plan.
+  architecture, destructive impact, or material scope outside the authorized plan.
 - Commit, push, deploy, destructive operations, and external writes require
   separate authorization for that action. Honor authorization already given;
   never stage unrelated dirty work.
@@ -48,7 +49,7 @@ Read the plan, review artifacts, relevant code, affected `reuse.md` catalogs,
 existing project documentation conventions, and the authoritative
 Vision/UI/Flow/Module/Contract or cross-domain notes.
 
-Preserve the implementation constraints in the approved plan and project
+Preserve the implementation constraints in the authorized plan and project
 `AGENTS.md`, including state ownership, persistence, interface compatibility,
 and applicable UI conventions. Keep testability hooks minimal.
 
@@ -68,14 +69,14 @@ and applicable UI conventions. Keep testability hooks minimal.
 
 ## Workflow
 
-1. Map every feedback item to the approved plan and current staged/working
+1. Map every feedback item to the authorized plan and current staged/working
    changes; identify any item requiring replanning. Reuse unchanged approvals
    and current source/validation evidence.
 2. Implement the smallest in-scope correction and focused regression evidence.
    Preserve assigned file ownership while children are still active. Classify
    failures before editing: product bug, test bug, environment blocker, or known
    gap. Fix a test only when evidence shows its fixture/assertion is wrong;
-   do not weaken the approved expected result to obtain a pass.
+   do not weaken the authorized expected result to obtain a pass.
 3. Update affected reuse catalogs and documentation owners.
 4. Run the project-declared documentation checks when specs change and the
    narrowest relevant code/tests from the plan and feedback.

@@ -13,16 +13,31 @@ Project requirements belong in each target repository's `AGENTS.md`, relevant
 
 ## Delegated Development In Codex
 
-Start in actual Codex Plan mode with [fs-dev-plan](fs-dev-plan/SKILL.md). It
-includes test cases and, when useful, subplans with dependencies and file
-ownership. After approval and switching to execution mode, use
+Start in Default mode with [fs-dev-plan](fs-dev-plan/SKILL.md). It explores the
+repository, resolves intent and implementation questions, and includes test cases
+and useful subplans with dependencies and file ownership. Necessary unanswered
+questions stop dependent work. Once the plan is complete, an implementation
+request continues directly through
 [fs-dev-orchestrate](fs-dev-orchestrate/SKILL.md): implementation children work
 in separate worktrees while the parent writes tests, integrates, runs validation,
 and resolves independent review findings. Final integration and cleanup follow
-the approved execution scope. Push/deployment are included only when authorized.
+the authorized execution scope. Push/deployment are included only when authorized.
+The plan includes parent-owned worktree cleanup: finished children leave no
+disposable worktrees after their outputs are integrated and preserved. Final
+handoff verifies the remaining task worktrees are cleaned up too.
+
+For example, "Use fs-dev-plan to implement title search with delegated delivery"
+authorizes planning and implementation within that request; it does not require
+"Approve this plan?". "Plan title search; do not implement" ends at the plan.
+The initial request and accepted answers supply authority, not the agent's plan.
+
+Native Codex Plan mode remains available for planning-only work, but its runtime
+restrictions still apply. A skill cannot automatically exit it. Default mode's
+clarification workflow is an instruction-based process, not a new client mode;
+questioning equivalence with native Plan mode is not guaranteed.
 
 Human View remains the authoritative, human-reviewable product/design meaning.
-Routine execution and fixes within an approved plan do not require repeated
+Routine execution and fixes within an authorized plan do not require repeated
 human review. A new material decision returns to the user.
 
 The family is installed together: development planning uses

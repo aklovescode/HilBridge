@@ -57,7 +57,7 @@ human authority; "persist only on Save and verify Cancel preserves stored state"
 is guidance derived from that statement.
 
 Human reviewability does not require a separate approval for every in-scope edit.
-An approved development plan authorizes its specified updates; ask again only
+An authorized development plan carries its specified updates; ask again only
 when the proposed meaning exceeds accepted intent. A documentation-only request
 still stops at its requested review boundary.
 
@@ -115,6 +115,6 @@ slice>` only after validation; distinguish readiness for review from complete
 verification. Omit generic process narration.
 
 `fs-dev-ideate` captures upper product intent; `fs-dev-plan` plans development and
-tests in actual Plan mode; `fs-dev-orchestrate` coordinates approved delegated
+tests with required clarification; `fs-dev-orchestrate` coordinates authorized delegated
 delivery. Implementation/iteration update authorized code and affected notes;
 `fs-dev-review` checks a staged or committed result without fixing it.

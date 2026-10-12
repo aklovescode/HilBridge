@@ -1,8 +1,9 @@
-# Test Design For An Approved Development Outcome
+# Test Design For An Authorized Development Outcome
 
 Use from `fs-dev-plan` for its integrated testing section, or from `fs-test-plan`
-for a testing-only task. The plan is the approval unit; this reference does not
-require a second approval for tests already covered by that plan.
+for a testing-only task. Tests within an authorized development plan reuse its
+task authority; this reference does not introduce a separate test approval gate.
+A planning-only request does not authorize implementing tests.
 
 ## Choose Evidence
 
@@ -27,9 +28,9 @@ artificial test. State wider checks only when they add identifiable confidence.
 Specify the authoritative criterion, target file, setup/fixture, action,
 expected observable result, and exact runnable command. Include implementation
 dependencies, environment prerequisites, and documentation owner where needed.
-Assertions should protect approved behavior rather than repeat implementation.
+Assertions should protect authorized behavior rather than repeat implementation.
 
-For example, an approved rule that invalid input leaves stored data unchanged
+For example, an authorized rule that invalid input leaves stored data unchanged
 needs a case that supplies invalid input, checks the defined failure result,
 and independently inspects unchanged stored state. Checking only the handler's
 success/failure message cannot establish persistence behavior.
@@ -37,7 +38,7 @@ success/failure message cannot establish persistence behavior.
 For delegated delivery, assign tests/fixtures/harness configuration to the
 parent and production testability hooks to the appropriate implementation child.
 Specify the seam/interface before dispatch. A hook that changes behavior,
-schema, API, or ownership needs to be included in the approved application plan.
+schema, API, or ownership needs to be included in the authorized application plan.
 Allow final test wiring after integration without revising accepted expectations.
 
 ## Documentation And Completion
